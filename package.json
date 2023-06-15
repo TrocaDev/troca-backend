@@ -1,0 +1,32 @@
+{
+  "name": "troca-backend",
+  "version": "0.0.1",
+  "description": "social connect and masa finance with Troca",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrocaDev/troca-backend.git"
+  },
+  "author": "Troca Dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TrocaDev/troca-backend/issues"
+  },
+  "homepage": "https://github.com/TrocaDev/troca-backend#readme",
+  "dependencies": {
+    "@celo/contractkit": "^4.1.0",
+    "@celo/identity": "^4.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "mongoose": "^7.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
