@@ -41,7 +41,7 @@ router.get("/", async (req, res) => {
                 if (result.check) {
                     return res.status(200).json({
                         handle: handle,
-                        address: result.address,
+                        connectedAddress: result.address,
                     });
                 } else {
                     return res.status(404).json({
