@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const scService = require("../services/scService");
 const { validateInput } = require("../utils/validateInput");
+const { getAdderssOfSoulName } = require("../services/masaService");
 
 router.get("/", async (req, res) => {
     console.log(req.body);
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
     if (validatedInput._valid) {
         try {
             if (validatedInput._mobile) {
-				let mobile = handle;
+                let mobile = handle;
                 const result = await scService.checkConnection(mobile);
 
                 if (result.connectedAddresses.length === 0) {
@@ -29,21 +30,33 @@ router.get("/", async (req, res) => {
                 }
 
                 return res.status(200).json({
-					handle: mobile,
+                    handle: mobile,
                     connectedAddress: result.connectedAddresses[0],
                 });
             } else {
-				return res.status(200).json({
-					message: ".celo handle"
-				})
-			}
+                let soulname = handle.slice(0, -5);
+                const result = await getAdderssOfSoulName(soulname);
+                console.log("address", result);
+
+                if (result.check) {
+                    return res.status(200).json({
+                        handle: handle,
+                        address: result.address,
+                    });
+                } else {
+                    return res.status(404).json({
+                        handle: handle,
+                        message: "No soulname found",
+                    });
+                }
+            }
         } catch (error) {
             console.error("An error occurred:", error);
 
             return res.status(500).json({ message: "Internal Server Error" });
         }
     } else {
-        console.log("fuck you!");
+        console.log("Not a valid input");
         return res.status(400).json({
             error: "Invalid handle",
         });
